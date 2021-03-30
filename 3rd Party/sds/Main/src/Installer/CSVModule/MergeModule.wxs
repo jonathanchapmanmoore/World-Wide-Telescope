@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?define DeployingAssemblyVersion="1.2.6754.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Module Id="CSVModule" Language="1033" Version="$(var.DeployingAssemblyVersion)">
+		<Package Id="692d7180-d38e-413c-91fb-0579f0350f50" Manufacturer="CSVModule" InstallerVersion="200" />
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="MergeRedirectFolder">
+
+				<!-- TODO: Remove the comments around this Component element in order to add resources to this module. -->
+				<!-- <Component Id="ModuleComponent" Guid="923b3b7e-d8ae-45c5-9857-57bff5138446"> -->
+					<!-- TODO: Insert files, registry keys, and other resources here. -->
+				<!-- </Component> -->
+
+			</Directory>
+		</Directory>
+	</Module>
+</Wix>

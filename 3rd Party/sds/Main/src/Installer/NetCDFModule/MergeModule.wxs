@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?define DeployingAssemblyVersion="1.2.6754.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Module Id="NetCDFModule" Language="1033" Version="$(var.DeployingAssemblyVersion)">
+		<Package Id="fefec797-6c8d-4645-9c30-ef2436374099" Manufacturer="NetCDFModule" InstallerVersion="200" />
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="MergeRedirectFolder">
+
+				<!-- TODO: Remove the comments around this Component element in order to add resources to this module. -->
+				<!-- <Component Id="ModuleComponent" Guid="36386544-09c8-4453-9797-dfa18bafe487"> -->
+					<!-- TODO: Insert files, registry keys, and other resources here. -->
+				<!-- </Component> -->
+
+			</Directory>
+		</Directory>
+	</Module>
+</Wix>

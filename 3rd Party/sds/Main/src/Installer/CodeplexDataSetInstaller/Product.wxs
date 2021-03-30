@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?define DeployingAssemblyVersion="1.2.6754.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util='http://schemas.microsoft.com/wix/UtilExtension'>
+  <Product Id="521840E2-AB03-4991-B9B6-5D4E8D050DD2" Name="Microsoft Research Scientific DataSet 1.2" Language="1033" Version="$(var.DeployingAssemblyVersion)" Manufacturer="Microsoft Research" UpgradeCode="3A80B191-372B-4846-87D6-ACAFA6EDDFAA">
+    <Package InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+    <WixVariable Id="WixUIBannerBmp" Overridable="yes" Value="Bitmaps\sdstop.bmp"/>
+    <WixVariable Id="WixUIDialogBmp" Value="Bitmaps\sdsleft.bmp" />
+
+    <!-- Workaround for WiX 3.5.1721 and 3.5.1728 bug. See link below for details:    
+         http://www.joyofsetup.com/2010/05/28/experimental-results-part-i -->
+    <WixVariable Id="WixUICostingPopupOptOut" Value="1" Overridable="yes" />
+
+    <PropertyRef Id="NETFRAMEWORK40CLIENT"/>
+
+    <!-- This should do installation for all users -->
+    <Property Id="ALLUSERS" Value="1"/>
+    
+    <Icon Id="ProductIcon.ico" SourceFile="Icon\SDS.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="ProductIcon.ico"/>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramMenuDir" Name="Scientific DataSet 1.2" />
+      </Directory>
+
+      <Directory Id="ProgramFilesFolder">
+        
+      <Directory Id="MainInstallLocation" Name="Microsoft Research">
+        <Directory Id="ScientificDataSet" Name="Scientific DataSet 1.2">
+
+          <Directory Id="Include" Name="Include">
+            <Component Id="SDS.h" Guid="14F70083-35B8-4a59-8CC8-212ACFD153F9">
+              <File Id="SDS.h" Name="SDS.h" Source="..\..\CppWrapper\Include\SDS.h" KeyPath="yes"/>
+            </Component>
+          </Directory>
+
+          <Component Id="appShortcuts" Guid="15B5B4A5-3131-4c77-81C8-10C65A156C61">
+
+            <RegistryKey Root="HKCU" Key="Software\ScientificDataSet\Shortcuts">
+              <RegistryValue Value="Installed" Type="string" KeyPath="yes" />
+            </RegistryKey>
+
+            <Shortcut Advertise="no"
+                       Id="sdshelp"
+                       Directory="ProgramMenuDir"
+                       Name="Scientific DataSet Reference"
+                       WorkingDirectory="ScientificDataSet"
+                       Description="Scientific DataSet Reference"
+                       Target="[!SDSHelp.chm]"/>
+
+            <Shortcut Advertise="no"
+                       Id="license"
+                       Directory="ProgramMenuDir"
+                       Name="License Agreement"
+                       WorkingDirectory="ScientificDataSet"
+                       Description="Microsoft Research License Agreement"
+                       Target="[!License]"/>
+
+            <RemoveFolder On="uninstall" Id="ShRem" Directory="ProgramMenuDir"/>
+          </Component>
+
+          <Component Id="SDSHelp" Guid="6EE6E54F-A849-40b0-8232-64F97BF2B472">
+            <File Id="SDSHelp.chm" Name="SDS Help.chm" Source="Help\SDS Help.chm"/>
+
+          </Component>
+
+          <Component Id="sdsutil.exe" Guid="A189F839-C65E-4cd6-A42B-C864B8AA70B9">
+            <File Id="sdsutil.exe"
+                  Source="$(var.sdsutil.TargetPath)"/>
+            <File Id="sdsutil.exe.config"
+                  Source="$(var.sdsutil.TargetDir)$(var.sdsutil.TargetName).exe.config"/>
+          </Component>
+
+          <Component Id="netcdfReadme" Guid="785087BB-7847-4d09-B343-C169A40121D9">
+            <File Id="NetCDFrm" Source="Help\NetCDF readme.rtf" Name="NetCDF Readme.rtf"/>
+          </Component>
+
+          <Component Id="License" Guid="31580093-FF81-4F7F-BFE8-2FF39857109C">
+            <File Id="License" Source="License.rtf" Name="License.rtf"/>
+          </Component>
+
+          <Component Id="path" Guid="3CB654E7-004C-482a-A351-5A31278CE07B" KeyPath="yes">
+            <CreateFolder/>
+            
+            <Environment Id="path"
+                         Name="PATH"
+                         Part="last"
+                         Value="[ScientificDataSet]"
+                         System="yes"
+                         Permanent="no"
+                         Action="set"
+                         Separator=";"/>
+            
+            <Environment Id="include"
+                         Name="INCLUDE"
+                         Part="last"
+                         Value="[ScientificDataSet]Include"
+                         System="yes"
+                         Permanent="no"
+                         Action="set"
+                         Separator=";"/>
+            
+            <Environment Id="libpath"
+                         Name="LIBPATH"
+                         Part="last"
+                         Value="[ScientificDataSet]"
+                         System="yes"
+                         Permanent="no"
+                         Action="set"
+                         Separator=";"/>
+            
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Merge Id="Core_Module" DiskId="1" Language="1033" SourceFile="$(var.CPCoreModule.TargetPath)" />
+    <Merge Id="Memory_Module" DiskId="1" Language="1033" src="$(var.MemoryModule.TargetPath)"/>
+    <Merge Id="CSV_Module" DiskId="1" Language="1033" src="$(var.CSVModule.TargetPath)"/>
+    <Merge Id="NetCDF_Module" DiskId="1" Language="1033" src="$(var.NetCDFModule.TargetPath)"/>
+
+    </Directory>
+
+    <UIRef Id="WixUI_Common" />
+
+    <UI Id="WixUI_Minimal">
+      
+      <TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
+      <TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="12" />
+      <TextStyle Id="WixUI_Font_Title" FaceName="Tahoma" Size="9" Bold="yes" />
+      <Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
+      <Property Id="WixUI_Mode" Value="Minimal" />
+      <DialogRef Id="ErrorDlg" />
+      <DialogRef Id="FatalError" />
+      <DialogRef Id="FilesInUse" />
+      <DialogRef Id="MsiRMFilesInUse" />
+      <DialogRef Id="PrepareDlg" />
+      <DialogRef Id="ProgressDlg" />
+      <DialogRef Id="ResumeDlg" />
+      <DialogRef Id="UserExit" />
+      <DialogRef Id="WelcomeDlg" />
+
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="LicenseAgrDlg">1</Publish>
+
+      <Publish Dialog="LicenseAgrDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg">1</Publish>
+      <Publish Dialog="LicenseAgrDlg" Control="Next" Event="NewDialog" Value="PrepareDlg">LicenseAcceptedCustom = "1"</Publish>
+      
+      <Publish Dialog="CustomExitDialog" Control="Finish" Event="EndDialog" Value="Return" Order="999">1</Publish>
+
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg">1</Publish>
+
+      <Publish Dialog="MaintenanceWelcomeDlg" Control="Next" Event="NewDialog" Value="MaintenanceTypeDlg">1</Publish>
+
+      <Publish Dialog="MaintenanceTypeDlg" Control="RepairButton" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
+      <Publish Dialog="MaintenanceTypeDlg" Control="RemoveButton" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
+      <Publish Dialog="MaintenanceTypeDlg" Control="Back" Event="NewDialog" Value="MaintenanceWelcomeDlg">1</Publish>
+
+      <Dialog Id="LicenseAgrDlg" Width="370" Height="270" Title="!(loc.LicenseAgreementDlg_Title)">
+        <Control Id="LicenseAcceptedCheckBox" Type="CheckBox" X="20" Y="207" Width="330" Height="18" CheckBoxValue="1" Property="LicenseAcceptedCustom" Text="!(loc.LicenseAgreementDlgLicenseAcceptedCheckBox)" />
+        <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />
+
+        <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)">
+          <Publish Event="SpawnWaitDialog" Value="WaitForCostingDlg">CostingComplete = 1</Publish>
+          <Condition Action="disable"><![CDATA[LicenseAcceptedCustom <> "1"]]></Condition>
+          <Condition Action="enable">LicenseAcceptedCustom = "1"</Condition>
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+          <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+        </Control>
+        <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.LicenseAgreementDlgBannerBitmap)" />
+        <Control Id="LicenseText" Type="ScrollableText" X="20" Y="60" Width="330" Height="140" Sunken="yes" TabSkip="no">
+          <Text SourceFile="License.rtf" />
+        </Control>
+        <Control Id="Print" Type="PushButton" X="112" Y="243" Width="56" Height="17" Text="!(loc.WixUIPrint)">
+          <Publish Event="DoAction" Value="WixUIPrintEula">1</Publish>
+        </Control>
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+        <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+        <Control Id="Description" Type="Text" X="25" Y="23" Width="340" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.LicenseAgreementDlgDescription)" />
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.LicenseAgreementDlgTitle)" />
+      </Dialog>
+      
+      <Dialog Id="CustomExitDialog" Width="370" Height="270" Title="!(loc.ExitDialog_Title)">
+        <Control Id="Finish" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Cancel="yes" Text="!(loc.WixUIFinish)" />
+        <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Disabled="yes" Text="!(loc.WixUICancel)" />
+        <Control Id="Bitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="234" TabSkip="no" Text="!(loc.ExitDialogBitmap)" />
+        <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Disabled="yes" Text="!(loc.WixUIBack)" />
+        <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+        <Control Id="Description" Type="Text" X="135" Y="70" Width="220" Height="40" Transparent="yes" NoPrefix="yes" Text="!(loc.ExitDialogDescription)" />
+        <Control Id="Title" Type="Text" X="135" Y="20" Width="220" Height="60" Transparent="yes" NoPrefix="yes" Text="!(loc.ExitDialogTitle)" />
+        
+        <Control Id="OptionalText" Type="ScrollableText" X="134" Y="85" Width="220" Height="120" TabSkip="no">
+          <Text SourceFile="ReleaseNotes.rtf"/>
+        </Control>
+        
+      </Dialog>
+
+      <InstallUISequence>
+        <Show Dialog="CustomExitDialog" OnExit="success" />
+      </InstallUISequence>
+
+      <AdminUISequence>
+        <Show Dialog="CustomExitDialog" OnExit="success" />
+      </AdminUISequence>
+
+      <Property Id="ARPNOMODIFY" Value="1" />
+    </UI>
+
+    <Feature Id="ProductFeature" Title="DataSetInstaller" Level="1">
+
+      <MergeRef Id="Core_Module"/>
+      <MergeRef Id="CSV_Module"/>
+      <MergeRef Id="Memory_Module"/>
+      <MergeRef Id="NetCDF_Module"/>
+
+      <ComponentRef Id="sdsutil.exe"/>
+      <ComponentRef Id="netcdfReadme"/>
+      
+      <ComponentRef Id="path"/>
+
+      <ComponentRef Id="SDS.h"/>
+
+      <ComponentRef Id="appShortcuts"/>
+
+      <ComponentRef Id="SDSHelp"/>
+      <ComponentRef Id="License"/>
+
+    </Feature>
+  </Product>
+</Wix>

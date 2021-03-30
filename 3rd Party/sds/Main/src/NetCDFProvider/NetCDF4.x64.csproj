@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Platform>x64</Platform>
+    <PlatformTarget>x64</PlatformTarget>
+    <Configuration>Release</Configuration>
+    <OutputPath>$(ProjectDir)bin\$(PlatformTarget)\</OutputPath>
+    <ProjectGuid>{9C879876-70BE-4E10-A893-3599F7FF2327}</ProjectGuid>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <OutDir Condition="'$(OutDir)' == ''">$(OutputPath)\..\</OutDir>
+    <OutDir>$(OutDir)\$(PlatformTarget)\</OutDir>
+    <IntDir>$(IntDir)\$(PlatformTarget)\</IntDir>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>0</FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+  </PropertyGroup>
+  <Import Project="Microsoft.Research.Science.Data.NetCDF4.csproj" />
+</Project>

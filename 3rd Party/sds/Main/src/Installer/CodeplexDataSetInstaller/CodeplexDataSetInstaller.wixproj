@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.5</ProductVersion>
+    <ProjectGuid>{b0858369-280b-42be-acfa-19dc0e54f2c7}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>Scientific DataSet CodePlex 1.2.6754.0</OutputName>
+    <OutputType>Package</OutputType>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.5\Wix2010.targets</WixTargetsPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.5\Wix2010.targets</WixTargetsPath>
+     
+     
+     
+     
+    <SuppressValidation>True</SuppressValidation>
+    <OutputPath>$(SolutionDir)$(Configuration)\bin\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DefineConstants>Debug</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+  </PropertyGroup>
+  <Import Project="$(WixTargetsPath)" />
+  <!--
+	To modify your build process, add your task inside one of the targets below and uncomment it.
+	Other similar extension points exist, see Wix.targets.
+	<Target Name="BeforeBuild">
+	</Target>
+	<Target Name="AfterBuild">
+	</Target>
+	-->
+  <ItemGroup>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
+      <Name>WixNetFxExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Bitmaps\sdsleft.bmp" />
+    <Content Include="Bitmaps\sdstop.bmp" />
+    <Content Include="Help\NetCDF readme.rtf" />
+    <Content Include="Help\SDS Help.chm" />
+    <Content Include="Icon\SDS.ico" />
+    <Content Include="License.rtf" />
+    <Content Include="ReleaseNotes.rtf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Product.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Bitmaps" />
+    <Folder Include="Help" />
+    <Folder Include="Icon" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\sdsutil\sdsutil.csproj">
+      <Name>sdsutil</Name>
+      <Project>{0eac3ebd-dc4d-4854-8c70-e096c49f8d47}</Project>
+      <Private>True</Private>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\CPCoreModule\CPCoreModule.wixproj">
+      <Name>CPCoreModule</Name>
+      <Project>{f86319e5-9dee-4766-8397-490f55fb7638}</Project>
+      <Private>True</Private>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\CSVModule\CSVModule.wixproj">
+      <Name>CSVModule</Name>
+      <Project>{3bee0261-902c-4bf8-9bdc-84606eafeca1}</Project>
+      <Private>True</Private>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\MemoryModule\MemoryModule.wixproj">
+      <Name>MemoryModule</Name>
+      <Project>{445e0414-8ce4-423c-8b41-9a516de5fe71}</Project>
+      <Private>True</Private>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\NetCDFModule\NetCDFModule.wixproj">
+      <Name>NetCDFModule</Name>
+      <Project>{9d7fd091-7dc1-4a8d-934c-d957e1f8312a}</Project>
+      <Private>True</Private>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(ProjectDir)..\..\..\sln\build_targets\WIX_BeforeBuild_CP.Targets" />
+</Project>

@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?define DeployingAssemblyVersion="1.2.6754.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util='http://schemas.microsoft.com/wix/UtilExtension'>
+  <Module Id="CSVMergeModule" Language="1033" Version="$(var.DeployingAssemblyVersion)" Guid="FD16C641-5B18-42F4-A2E3-7FCE7FD5B0C2">
+    <Package Id="692d7180-d38e-413c-91fb-0579f0350f50" 
+             Manufacturer="Microsoft Research" 
+             InstallerVersion="200" 
+             Description="CSV file format provider for Scientific DataSet library" />
+
+    <PropertyRef Id="NETFRAMEWORK40CLIENT"/>
+    <PropertyRef Id="NETFRAMEWORK20INSTALLROOTDIR"/>
+    <PropertyRef Id="NETFRAMEWORK20INSTALLROOTDIR64"/>
+    <PropertyRef Id="NETFRAMEWORK40CLIENTINSTALLROOTDIR"/>
+    <PropertyRef Id="NETFRAMEWORK40CLIENTINSTALLROOTDIR64"/>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="Reference Assemblies">
+          <Directory Id="Microsoft" Name="Microsoft">
+            <Directory Id="Research" Name="Research">
+              <Directory Id="ScientificDataSet" Name="Scientific DataSet 1.2">
+
+                <!--The following assemblies will be put in GAC-->
+                <Directory Id="GAC" Name="GAC">
+
+                  <Component Id="Microsoft.Research.Science.Data.CSV.dll_GAC" Guid="C6B233FE-CB73-43b1-8673-BEFE877AFDBA">
+                    <File
+                      Id="Microsoft.Research.Science.Data.CSV.dll"
+                      Checksum="yes"
+                      KeyPath="yes"
+                      Source="$(var.Microsoft.Research.Science.Data.CSV.TargetPath)"
+                      Assembly=".net"/> 
+                  </Component>
+
+                </Directory>
+
+                <!--Copying assemblies to local folder-->
+                <Component Id="Microsoft.Research.Science.Data.CSV.dll" Guid="F78AECDB-B4FC-4fda-ACE6-C13CD764FF25">
+                  <File 
+                    Id="Microsoft.Research.Science.Data.CSV.dll_nonGac" 
+                    Checksum="yes"
+                    KeyPath="yes" 
+                    Source="$(var.Microsoft.Research.Science.Data.CSV.TargetPath)"/>
+                  <!--Adding documentation-->
+                  <File 
+                    Id="Microsoft.Research.Science.Data.CSV.xml" 
+                    Checksum="yes" 
+                    Source="$(var.Microsoft.Research.Science.Data.CSV.TargetDir)$(var.Microsoft.Research.Science.Data.CSV.TargetName).XML"/>
+                </Component>
+
+                <!--FactoryClassName for Machine.Config key-->
+                <?define FactoryClassFullName="Microsoft.Research.Science.Data.CSV.CsvDataSet, Microsoft.Research.Science.Data.CSV, Version=$(var.DeployingAssemblyVersion), Culture=neutral, PublicKeyToken=$(var.DeployingPublicKeyToken)"?>
+                
+                <!--Registering Provider in Machine.Config .NET 3.5 x86-->
+                <Component Id="MachineConfig" Guid="8390C676-9A81-4a53-B90B-9A12F1231089" KeyPath="yes">
+                  <?define FileTarget = "[NETFRAMEWORK20INSTALLROOTDIR]config\machine.config" ?>
+                  <?define PlatformType = "x86"?>
+                  <?include MachineConfig.wxi ?>
+                </Component>
+
+                <!--Registering Provider in Machine.Config .NET 3.5 x64-->
+                <Component Id="MachineConfig64" Guid="8450C676-9A81-4a53-B90B-9A12F1206689" KeyPath="yes">
+                  <Condition>VersionNT64</Condition>
+                  <?define FileTarget = "[NETFRAMEWORK20INSTALLROOTDIR64]config\machine.config" ?>
+                  <?define PlatformType = "x64"?>
+                  <?include MachineConfig.wxi ?>
+                </Component>
+
+                <!--Registering Provider in Machine.Config .NET 4.0 rtm x86-->
+                <Component Id="MCn4rtm" Guid="DB1FAA50-F73C-46f9-9DBD-68DADB1BEC64" KeyPath="yes">
+
+                  <Condition>NETFRAMEWORK40CLIENT</Condition>
+                  <?define FileTarget = "[NETFRAMEWORK40CLIENTINSTALLROOTDIR]config\machine.config" ?>
+                  <?define PlatformType = "x86n4rtm"?>
+                  <?include MachineConfig.wxi ?>
+
+                </Component>
+
+                <!--Registering Provider in Machine.Config .NET 4.0 rtm x64-->
+                <Component Id="MC64n4rtm" Guid="87DCE426-128C-4c25-8AC6-0E882F53454D" KeyPath="yes">
+
+                  <Condition>VersionNT64 AND NETFRAMEWORK40CLIENT</Condition>
+                  <?define FileTarget = "[NETFRAMEWORK40CLIENTINSTALLROOTDIR64]config\machine.config" ?>
+                  <?define PlatformType = "x64n4rtm"?>
+                  <?include MachineConfig.wxi ?>
+
+                </Component>
+
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Module>
+</Wix>

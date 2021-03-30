@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?define DeployingAssemblyVersion="1.2.6754.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util='http://schemas.microsoft.com/wix/UtilExtension'>
+  <Module Id="CPCoreModule" Language="1033" Version="$(var.DeployingAssemblyVersion)" Guid="43281650-B667-40DD-8772-D8E9A31FD724">
+    <Package Id="051cd622-7538-4928-aaee-a755e0b38eba" Manufacturer="Microsoft Research" InstallerVersion="200" />
+
+    <PropertyRef Id="NETFRAMEWORK40CLIENT"/>
+    <PropertyRef Id="NETFRAMEWORK20INSTALLROOTDIR"/>
+    <PropertyRef Id="NETFRAMEWORK20INSTALLROOTDIR64"/>
+    <PropertyRef Id="NETFRAMEWORK40CLIENTINSTALLROOTDIR"/>
+    <PropertyRef Id="NETFRAMEWORK40CLIENTINSTALLROOTDIR64"/>
+
+    <CustomAction Id="SetLocalProgFiles" Property="LocalProgramFiles" Value="[%ProgramFiles]"/>
+
+    <InstallExecuteSequence>
+      <Custom Action="SetLocalProgFiles" Before="LaunchConditions"/>
+
+    </InstallExecuteSequence>
+
+    <InstallUISequence>
+      <Custom Action="SetLocalProgFiles" Before="LaunchConditions"/>
+    </InstallUISequence>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <!--<Directory Id="MergeRedirectFolder">-->
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="Reference Assemblies">
+          <Directory Id="Microsoft" Name="Microsoft">
+            <Directory Id="Research" Name="Research">
+              <Directory Id="ScientificDataSet" Name="Scientific DataSet 1.2">
+
+                <!--The following assemblies will be put in GAC-->
+                <Directory Id="GAC" Name="GAC">
+
+                  <Component Id="Microsoft.Research.Science.Data.dll_GAC" Guid="DEB6584F-BD8A-4d0b-A0D1-68D602F6B7AA">
+                    <File Id="Microsoft.Research.Science.Data.dll"
+                          Checksum="yes"
+                          KeyPath="yes"
+                          Source="$(var.Microsoft.Research.Science.Data.TargetPath)"
+                          Assembly=".net"/>
+                  </Component>
+
+                  <Component Id="Microsoft.Research.Science.Data.Imperative.dll_GAC" Guid="086CF352-C69F-4a48-9241-6F33630A603B">
+                    <File Id="Microsoft.Research.Science.Data.Imperative.dll"
+                          Checksum="yes"
+                          KeyPath="yes"
+                          Source="$(var.Microsoft.Research.Science.Data.Imperative.TargetPath)"
+                          Assembly=".net"/>
+                  </Component>
+
+
+                </Directory>
+
+                <!--Registering Folder for VisualStudio 2008 visibility x86-->
+                <Component Id="VisualStudio2008Reference" Guid="84AFE0FC-32B7-4fb0-96CF-3269EB54BAD8">
+                  <Registry Action="createKeyAndRemoveKeyOnUninstall" Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\AssemblyFolders\DataSetAssemblies" />
+                  <Registry Action="write" Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\AssemblyFolders\DataSetAssemblies" Value="[LocalProgramFiles]\Reference Assemblies\Microsoft\Research\Scientific DataSet 1.2" Type="string"/>
+                </Component>
+
+                <!--Registering Folder for VisualStudio 2008 visibility x64-->
+                <Component Id="VisualStudio2008Referencex64" Guid="39D5EC2F-AB52-4e61-82F2-94F0CE8B36FA">
+                  <Condition>VersionNT64</Condition>
+                  <Registry Action="createKeyAndRemoveKeyOnUninstall" Root="HKLM" Key="SOFTWARE\Wow6432Node\Microsoft\.NETFramework\AssemblyFolders\DataSetAssemblies" />
+                  <Registry Action="write" Root="HKLM" Key="SOFTWARE\Wow6432Node\Microsoft\.NETFramework\AssemblyFolders\DataSetAssemblies" Value="[LocalProgramFiles]\Reference Assemblies\Microsoft\Research\Scientific DataSet 1.2" Type="string"/>
+                </Component>
+
+                <!--Registering Folder for VisualStudio 2010 visibility x86-->
+                <Component Id="VisualStudio2010Reference" Guid="1E4D7F93-B98F-44fd-ABB0-127EB3008FEE">
+                  <Registry Action="createKeyAndRemoveKeyOnUninstall" Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\v3.5\AssemblyFoldersEx\DataSetAssemblies" />
+                  <Registry Action="write" Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\v3.5\AssemblyFoldersEx\DataSetAssemblies" Value="[LocalProgramFiles]\Reference Assemblies\Microsoft\Research\Scientific DataSet 1.2" Type="string"/>
+                </Component>
+
+                <!--Registering Folder for VisualStudio 2010 visibility x64-->
+                <Component Id="VisualStudio2010Referencex64" Guid="D313534D-5E09-40d9-BEB7-3E4EE88594A1">
+                  <Condition>VersionNT64</Condition>
+                  <Registry Action="createKeyAndRemoveKeyOnUninstall" Root="HKLM" Key="SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v3.5\AssemblyFoldersEx\DataSetAssemblies" />
+                  <Registry Action="write" Root="HKLM" Key="SOFTWARE\Wow6432Node\Microsoft\v3.5\AssemblyFoldersEx\DataSetAssemblies" Value="[LocalProgramFiles]\Reference Assemblies\Microsoft\Research\Scientific DataSet 1.2" Type="string"/>
+                </Component>
+
+                <?define SectionFullName="Microsoft.Research.Science.Data.Factory.FactoryConfigurationSection, Microsoft.Research.Science.Data, Version=$(var.DeployingAssemblyVersion), Culture=neutral, PublicKeyToken=$(var.DeployingPublicKeyToken)"?>
+
+                <!--Registering DataSetProviders in Machine.Config .NET 3.5 x86-->
+                <Component Id="MC" Guid="8390C643-9A81-4a53-B90B-9A12F2131089" KeyPath="yes">
+
+                  <?define FileTarget = "[NETFRAMEWORK20INSTALLROOTDIR]config\machine.config" ?>
+                  <?define PlatformType = "x86"?>
+                  <?include MachineConfigProviders.wxi ?>
+
+                </Component>
+
+                <!--Registering DataSetProviders in Machine.Config .NET 3.5 x64-->
+                <Component Id="MC64" Guid="431CE067-B89A-4b29-8BAF-EE06CF359F83" KeyPath="yes">
+
+                  <Condition>VersionNT64</Condition>
+                  <?define FileTarget = "[NETFRAMEWORK20INSTALLROOTDIR64]config\machine.config" ?>
+                  <?define PlatformType = "x64"?>
+                  <?include MachineConfigProviders.wxi ?>
+
+                </Component>
+
+                <!--Registering DataSetProviders in Machine.Config .NET 4.0 rtm x86-->
+                <Component Id="MCn4rtm" Guid="9D5D1F99-63A6-42c5-81B3-6B1864293BF6" KeyPath="yes">
+
+                  <Condition>NETFRAMEWORK40CLIENT</Condition>
+                  <?define FileTarget = "[NETFRAMEWORK40CLIENTINSTALLROOTDIR]config\machine.config" ?>
+                  <?define PlatformType = "x64n4rtm"?>
+                  <?include MachineConfigProviders.wxi ?>
+
+                </Component>
+
+                <!--Registering DataSetProviders in Machine.Config .NET 4.0 rtm x64-->
+                <Component Id="MC64n4rtm" Guid="1EFE0438-311E-49a1-9754-2C74F5534672" KeyPath="yes">
+
+                  <Condition>VersionNT64 AND NETFRAMEWORK40CLIENT</Condition>
+                  <?define FileTarget = "[NETFRAMEWORK40CLIENTINSTALLROOTDIR64]config\machine.config" ?>
+                  <?define PlatformType = "x86n4rtm"?>
+                  <?include MachineConfigProviders.wxi ?>
+
+                </Component>
+
+
+                <!--Copying Assemblies to Local Folder-->
+                <Component Id="Microsoft.Research.Science.Data.dll" Guid="A177EA0B-CADE-48cb-906D-ED840529428F">
+                  <File Id="Microsoft.Research.Science.Data.dll_nonGac"
+                        Checksum="yes"
+                        KeyPath="yes"
+                        Source="$(var.Microsoft.Research.Science.Data.TargetPath)"/>
+                  <!--Adding documentation-->
+                  <File Id="Microsoft.Research.Science.Data.xml"
+                        Checksum="yes"
+                        Source="$(var.Microsoft.Research.Science.Data.TargetDir)$(var.Microsoft.Research.Science.Data.TargetName).XML"/>
+                </Component>
+
+                <Component Id="Microsoft.Research.Science.Data.Imperative.dll" Guid="F7A87993-6618-4f9f-931E-562F59D0716F">
+                  <File Id="Microsoft.Research.Science.Data.Imperative.dll_nonGac"
+                        Checksum="yes"
+                        KeyPath="yes"
+                        Source="$(var.Microsoft.Research.Science.Data.Imperative.TargetPath)"/>
+                  <!--Adding documentation-->
+                  <File Id="Microsoft.Research.Science.Data.Imperative.xml"
+                        Checksum="yes"
+                        Source="$(var.Microsoft.Research.Science.Data.Imperative.TargetDir)$(var.Microsoft.Research.Science.Data.Imperative.TargetName).XML"/>
+                </Component>
+
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Module>
+</Wix>

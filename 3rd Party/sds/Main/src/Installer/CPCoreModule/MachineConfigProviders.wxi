@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns:util='http://schemas.microsoft.com/wix/UtilExtension'>
+  <!--Modifying config section-->
+  <util:XmlConfig Id="S$(var.PlatformType)" On="install" File="$(var.FileTarget)" ElementPath="//configuration/configSections" Node="element" Name="section" Sequence="1" Action="create" VerifyPath="section[\[]@type='$(var.SectionFullName)'[\]]"/>
+  <util:XmlConfig Id="Sn$(var.PlatformType)" File="$(var.FileTarget)" ElementPath="S$(var.PlatformType).43281650_B667_40DD_8772_D8E9A31FD724" Name="name" Value="microsoft.research.science.data.1.2" Sequence="2"/>
+  <util:XmlConfig Id="St$(var.PlatformType)" File="$(var.FileTarget)" ElementPath="S$(var.PlatformType).43281650_B667_40DD_8772_D8E9A31FD724" Name="type" Value="$(var.SectionFullName)" Sequence="3"/>
+  <util:XmlConfig Id="Sd$(var.PlatformType)" On="uninstall" File="$(var.FileTarget)" ElementPath="//configuration/configSections" VerifyPath="section[\[]@type='$(var.SectionFullName)'[\]]" Action="delete" Sequence="1" Node="element"/>
+
+  <!--Creating Microsoft.Research.Science.Data partition-->
+  <util:XmlConfig Id="SFC$(var.PlatformType)"
+                  On="install"
+                  File="$(var.FileTarget)"
+                  ElementPath="//configuration"
+                  Node="element"
+                  Name="microsoft.research.science.data.1.2"
+                  Sequence="1"
+                  Action="create"
+                  VerifyPath="microsoft.research.science.data.1.2"/>
+  <util:XmlConfig Id="F$(var.PlatformType)"
+                  File="$(var.FileTarget)"
+                  Name="factories"
+                  ElementPath="//configuration/microsoft.research.science.data.1.2"
+                  Sequence="2"
+                  Action="create"
+                  Node="element"
+                  On="install"
+                  VerifyPath="factories"/>
+  <util:XmlConfig Id="SFCd$(var.PlatformType)" On="uninstall" File="$(var.FileTarget)" ElementPath="//configuration" Node="element" VerifyPath="microsoft.research.science.data.1.2" Sequence="1" Action="delete"/>
+
+</Include>

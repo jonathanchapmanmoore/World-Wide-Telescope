@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ScientificDataSet"
+    targetNamespace="http://research.microsoft.com/science/dataset"
+    elementFormDefault="qualified"
+    xmlns="http://research.microsoft.com/science/dataset"
+    xmlns:sds="http://research.microsoft.com/science/dataset"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="sds">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="variable" type="sds:Variable" />
+        <xs:element name="dimension" type="sds:Dimension" />
+        <xs:element name="coordinates" type="sds:CoordinateSystem" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="Dimension">
+    <xs:attribute name="name" type="xs:token" use="required" />
+    <xs:attribute name="length" type="xs:nonNegativeInteger" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="Variable">
+    <xs:choice minOccurs="1" maxOccurs="1">
+      <xs:sequence minOccurs="1" maxOccurs="1">
+        <xs:element name="attribute" type="sds:Attribute" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="values" type="sds:Data" minOccurs="0" maxOccurs="1" />
+      </xs:sequence>
+      <xs:sequence minOccurs="1" maxOccurs="1">
+        <xs:element name="provider" type="sds:VariableProvider" minOccurs="1" maxOccurs="1" />
+      </xs:sequence>
+    </xs:choice>
+    <xs:attribute name="name" type="xs:token" use="required" />
+    <xs:attribute name="type" type="xs:string" use="required" />
+    <xs:attribute name="shape" type="xs:token" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="Data" mixed="true">
+    <xs:attribute name="separator" type="xs:string" />
+    <xs:attribute name="culture" type="xs:string" />
+  </xs:complexType>
+
+  <xs:complexType name="Attribute" mixed="true">
+    <xs:attribute name="name" type="xs:token" use="required" />
+    <xs:attribute name="type" type="xs:string" default="System.String" />
+    <xs:attribute name="value" type="xs:string" />
+    <xs:attribute name="separator" type="xs:string" />
+  </xs:complexType>
+
+  <xs:complexType name="VariableProvider">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="property" type="sds:ProviderProperty" />
+    </xs:sequence>
+    <xs:attribute name="type" type="xs:string" use="required" />
+    <xs:attribute name="connectionString" type="xs:string" use="required" />
+    <xs:attribute name="query" type="xs:string" use="required" />    
+  </xs:complexType>
+
+  <xs:complexType name="ProviderProperty">    
+    <xs:attribute name="name" type="xs:token" use="required" />
+    <xs:attribute name="type" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="CoordinateSystem">
+    <xs:sequence minOccurs="1" maxOccurs="unbounded">
+      <xs:element name="axis" type="xs:token" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:token" use="required" />
+  </xs:complexType>
+
+</xs:schema>

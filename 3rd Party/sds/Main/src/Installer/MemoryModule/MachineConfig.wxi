@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns:util='http://schemas.microsoft.com/wix/UtilExtension'>
+  <!--Provider-->
+  <util:XmlConfig Id="Memp$(var.PlatformType)" File="$(var.FileTarget)" Name="add" Node="element" Sequence="3" Action="create" ElementPath="//configuration/microsoft.research.science.data.1.2/factories" On="install"/>
+  <util:XmlConfig Id="Mempn$(var.PlatformType)" File="$(var.FileTarget)" Name="name" ElementPath="Memp$(var.PlatformType).D48E7B94_2FEA_455A_84F6_0161B1C86520" Sequence="4" Value="memory"/>
+  <util:XmlConfig Id="Mempt$(var.PlatformType)" File="$(var.FileTarget)" Name="type" ElementPath="Memp$(var.PlatformType).D48E7B94_2FEA_455A_84F6_0161B1C86520" Sequence="4" Value="$(var.FactoryClassFullName)"/>
+</Include>

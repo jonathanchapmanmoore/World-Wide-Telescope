@@ -1,0 +1,11 @@
+<!-- Copyright © 2010 Microsoft Corporation, All Rights Reserved.
+This code released under the terms of the Microsoft Research License Agreement (MSR-LA, http://sds.codeplex.com/License) -->
+<Application x:Class="VisualizationTutorial1.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    StartupUri="MainWindow.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
+

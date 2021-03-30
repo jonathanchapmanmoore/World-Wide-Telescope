@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?define DeployingAssemblyVersion="1.2.6754.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util='http://schemas.microsoft.com/wix/UtilExtension'>
+  <Module Id="MemoryModule" Language="1033" Version="$(var.DeployingAssemblyVersion)" Guid="D48E7B94-2FEA-455A-84F6-0161B1C86520">
+    <Package Id="d48d7209-5404-4438-8d99-95653bfce7c4" Manufacturer="Microsoft Research" InstallerVersion="200" />
+
+    <PropertyRef Id="NETFRAMEWORK40CLIENT"/>
+    <PropertyRef Id="NETFRAMEWORK20INSTALLROOTDIR"/>
+    <PropertyRef Id="NETFRAMEWORK20INSTALLROOTDIR64"/>
+    <PropertyRef Id="NETFRAMEWORK40CLIENTINSTALLROOTDIR"/>
+    <PropertyRef Id="NETFRAMEWORK40CLIENTINSTALLROOTDIR64"/>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="Reference Assemblies">
+          <Directory Id="Microsoft" Name="Microsoft">
+            <Directory Id="Research" Name="Research">
+              <Directory Id="ScientificDataSet" Name="Scientific DataSet 1.2">
+
+                <!--The following assemblies will be put in GAC-->
+                <Directory Id="GAC" Name="GAC">
+
+                  <Component Id="Microsoft.Research.Science.Data.Memory.dll_GAC" Guid="C6B233FE-CB73-43b1-8673-BEFE800AFDBA">
+                    <File Id="Microsoft.Research.Science.Data.Memory.dll" 
+                          Checksum="yes"
+                          KeyPath="yes" 
+                          Source="$(var.Microsoft.Research.Science.Data.Memory.TargetPath)" 
+                          Assembly=".net"/>
+                  </Component>
+
+                </Directory>
+
+                <!--Copying assemblies to local folder-->
+                <Component Id="Microsoft.Research.Science.Data.Memory.dll" Guid="F78AECDB-B4FC-4fda-ACE6-C13CD274FF25">
+                  <File Id="Microsoft.Research.Science.Data.Memory.dll_nonGac" 
+                        Checksum="yes"
+                        KeyPath="yes" 
+                        Source="$(var.Microsoft.Research.Science.Data.Memory.TargetPath)"/>
+                  <!--Adding documentation-->
+                  <File Id="Microsoft.Research.Science.Data.Memory.xml" 
+                        Checksum="yes" 
+                        Source="$(var.Microsoft.Research.Science.Data.Memory.TargetDir)$(var.Microsoft.Research.Science.Data.Memory.TargetName).XML"/>
+                </Component>
+
+                <?define FactoryClassFullName="Microsoft.Research.Science.Data.Memory.MemoryDataSet, Microsoft.Research.Science.Data.Memory, Version=$(var.DeployingAssemblyVersion), Culture=neutral, PublicKeyToken=$(var.DeployingPublicKeyToken)"?>
+
+                <!--Registering Provider in Machine.Config .NET 3.5 x86-->
+                <Component Id="MachineConfig" Guid="8390C676-9A81-4a53-B90B-9A12F2131089" KeyPath="yes">
+                  <?define FileTarget = "[NETFRAMEWORK20INSTALLROOTDIR]config\machine.config" ?>
+                  <?define PlatformType = "x86"?>
+                  <?include MachineConfig.wxi ?>
+                </Component>
+
+                <!--Registering Provider in Machine.Config .NET 3.5 x64-->
+                <Component Id="MachineConfig64" Guid="8390C676-9A81-4a53-B90B-9A12F4567089" KeyPath="yes">
+                  <Condition>VersionNT64</Condition>
+                  <?define FileTarget = "[NETFRAMEWORK20INSTALLROOTDIR64]config\machine.config" ?>
+                  <?define PlatformType = "x64"?>
+                  <?include MachineConfig.wxi ?>
+                </Component>
+
+                <!--Registering Provider in Machine.Config .NET 4.0 rtm x86-->
+                <Component Id="MachineConfign4rtm" Guid="7D887582-E801-4340-88E3-84F4E43B4C3F" KeyPath="yes">
+
+                  <Condition>NETFRAMEWORK40CLIENT</Condition>
+                  <?define FileTarget = "[NETFRAMEWORK40CLIENTINSTALLROOTDIR]config\machine.config" ?>
+                  <?define PlatformType = "x86n4rtm"?>
+                  <?include MachineConfig.wxi ?>
+
+                </Component>
+
+                <!--Registering Provider in Machine.Config .NET 4.0 rtm x64-->
+                <Component Id="MachineConfig64n4rtm" Guid="8E2422CF-E4AA-4bf8-8C33-76D7916EE11B" KeyPath="yes">
+
+                  <Condition>VersionNT64 AND NETFRAMEWORK40CLIENT</Condition>
+                  <?define FileTarget = "[NETFRAMEWORK40CLIENTINSTALLROOTDIR64]config\machine.config" ?>
+                  <?define PlatformType = "x64n4rtm"?>
+                  <?include MachineConfig.wxi ?>
+
+                </Component>
+
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Module>
+</Wix>

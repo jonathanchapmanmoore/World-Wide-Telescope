@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.0</ProductVersion>
+    <ProjectGuid>{9d7fd091-7dc1-4a8d-934c-d957e1f8312a}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>NetCDFModule</OutputName>
+    <OutputType>Module</OutputType>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.5\Wix2010.targets</WixTargetsPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.5\Wix2010.targets</WixTargetsPath>
+     
+     
+     
+     
+    <SuppressValidation>True</SuppressValidation>
+    <OutputPath>$(SolutionDir)$(Configuration)\bin\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(DeployingPublicKeyToken)' == ''">
+    <DefineConstants>DeployingPublicKeyToken=e550de0161496f12</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(DeployingPublicKeyToken)' != ''">
+    <DefineConstants>DeployingPublicKeyToken=$(DeployingPublicKeyToken)</DefineConstants>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Include="NetCDFModule.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MachineConfig.wxi" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\NetCDFProvider\Microsoft.Research.Science.Data.NetCDF4.csproj">
+      <Name>Microsoft.Research.Science.Data.NetCDF4</Name>
+      <Project>{6d7f2da4-8e33-407c-bbd1-3255b27574cf}</Project>
+      <Private>True</Private>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetCDFProvider\NetCDF4.x64.csproj">
+      <Name>NetCDF4.x64</Name>
+      <Project>{9c879876-70be-4e10-a893-3599f7ff2327}</Project>
+      <Private>True</Private>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>C:\Program Files\Windows Installer XML v3.5\bin\WixNetFxExtension.dll</HintPath>
+      <Name>WixNetFxExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Windows Installer XML v3.5\bin\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Windows Installer XML v3.5\bin\WixNetFxExtension.dll</HintPath>
+      <Name>WixNetFxExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" />
+  <!--<Import Project="$(ProjectDir)..\..\..\sln\build_targets\WIX_BeforeBuild_NetCDF4.Targets" />-->
+  <!--
+	To modify your build process, add your task inside one of the targets below and uncomment it.
+	Other similar extension points exist, see Wix.targets.
+	<Target Name="BeforeBuild">
+	</Target>
+	<Target Name="AfterBuild">
+	</Target>
+	-->
+</Project>

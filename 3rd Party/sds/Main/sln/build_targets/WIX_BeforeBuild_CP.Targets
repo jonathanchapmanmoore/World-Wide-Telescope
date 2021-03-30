@@ -1,0 +1,35 @@
+﻿<Project DefaultTargets="BeforeBuild" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Target Name="BeforeBuild">
+
+    <MakeDir Directories="$(ProjectDir)\ChmHelp"/>
+
+    <PropertyGroup Condition="'$(BinariesRoot)' == ''">
+      <OutForBuild>$(SolutionDir)$(Configuration)\bin\</OutForBuild>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(BinariesRoot)' != ''">
+      <OutForBuild>$(OutDir)</OutForBuild>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <HelpFile Include="$(ProjectDir)\Help\*.chm"/>
+      <HelpFile Include="$(ProjectDir)\ChmHelp\*.chm"/>
+    </ItemGroup>
+
+    <Delete Files="@(HelpFile)" ContinueOnError="true"/>
+
+    <MSBuild Projects="$(ProjectDir)..\..\..\sln\SDSHelp\SDSHelp_public.shfbproj"
+    Properties="Configuration=Release;Platform=AnyCPU;OutDir=$(OutForBuild);OutputPath=$(ProjectDir)\Help\;HelpFileFormat=HtmlHelp1x;PublicRelease=true;" />
+
+    <ItemGroup>
+      <HelpFile Include="$(SolutionDir)..\SDSHelp\Help\*.chm" />
+    </ItemGroup>
+
+    <Message Importance="high" Text="@(HelpFile)"/>
+    <Copy SourceFiles="@(HelpFile)" DestinationFolder="$(ProjectDir)Help\"/>
+
+
+  </Target>
+
+</Project>

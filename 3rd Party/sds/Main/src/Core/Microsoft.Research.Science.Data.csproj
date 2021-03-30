@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8C878BB0-53BE-46DB-A46E-93F6188EFEDD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.Research.Science.Data</RootNamespace>
+    <AssemblyName>Microsoft.Research.Science.Data</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile Condition=" '$(AssemblyOriginatorKeyFile)' == '' ">ScientificDataSet.snk</AssemblyOriginatorKeyFile>
+     
+     
+     
+     
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)Debug\bin</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>$(SolutionDir)Debug\bin\Microsoft.Research.Science.Data.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRules>
+    </CodeAnalysisRules>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)Release\bin</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>$(SolutionDir)Release\bin\Microsoft.Research.Science.Data.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRules>
+    </CodeAnalysisRules>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>0612;0618;1570;1571;1572;1573;1587;1591;1592;1734;</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DelaySignedRelease|AnyCPU'">
+    <OutputPath>bin\DelaySignedRelease\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>C:\V\MSU\ScientificDataSet\Main\sln\ModuleInstaller\Release\bin\Microsoft.Research.Science.Data.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>0612;0618;1570;1571;1572;1573;1587;1591;1592;1734;</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>C:\V\MSU\ScientificDataSet\Main\sln\ModuleInstaller\Release\bin\Microsoft.Research.Science.Data.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\ArrayWrapper.cs" />
+    <Compile Include="Core\AsyncRequests.cs" />
+    <Compile Include="Core\CollectionCombination.cs" />
+    <Compile Include="Core\DataSet.MultipleDataRequest.cs" />
+    <Compile Include="Core\DataSetChangeset.cs" />
+    <Compile Include="Core\DataSetEvents.cs" />
+    <Compile Include="Core\DataSetLink.cs" />
+    <Compile Include="Core\EmptyValue.cs" />
+    <Compile Include="Core\IDependantVariable.cs" />
+    <Compile Include="Core\IndexTransformVariable.cs" />
+    <Compile Include="Core\LambdaTransformVariable.cs" />
+    <Compile Include="Core\MetadataChanges.cs" />
+    <Compile Include="Core\MetadataContainerVariable.cs" />
+    <Compile Include="Core\MetadataDictionary.cs" />
+    <Compile Include="Core\Range.cs" />
+    <Compile Include="Core\TransformedVariable.cs" />
+    <Compile Include="Core\CoordinateSystem.cs" />
+    <Compile Include="Core\CoordinateSystemCollection.cs" />
+    <Compile Include="Core\DataAccessVariable.cs" />
+    <Compile Include="Core\DataSet.cs" />
+    <Compile Include="Core\Dimension.cs" />
+    <Compile Include="Core\DimensionList.cs" />
+    <Compile Include="Exceptions\Exceptions.cs" />
+    <Compile Include="Core\IndexResolver.cs" />
+    <Compile Include="Core\Interpolation.cs" />
+    <Compile Include="Exceptions\DataSetCreatingException.cs" />
+    <Compile Include="Exceptions\DataSetException.cs" />
+    <Compile Include="Exceptions\DistributedCommitFailedException.cs" />
+    <Compile Include="Core\Providers.cs" />
+    <Compile Include="Core\Rectangle.cs" />
+    <Compile Include="Core\RefVariable.cs" />
+    <Compile Include="Core\RefVariableMetadata.cs" />
+    <Compile Include="Core\ScaledVariable.cs" />
+    <Compile Include="Core\Schemas.cs" />
+    <Compile Include="Core\OrderedArray1d.cs" />
+    <Compile Include="Core\StriddenVariable.cs" />
+    <Compile Include="Core\Types.cs" />
+    <Compile Include="Core\Variable.Reversibility.cs" />
+    <Compile Include="Core\Variables.cs" />
+    <Compile Include="Core\VariablesCollection.cs" />
+    <Compile Include="Exceptions\ConstraintsFailedException.cs" />
+    <Compile Include="Exceptions\ResourceNotFoundException.cs" />
+    <Compile Include="Factory\Attributes.cs" />
+    <Compile Include="Factory\DataSetFactory.cs" />
+    <Compile Include="Factory\FactoryConfigurationElement.cs" />
+    <Compile Include="Factory\FactoryConfigurationElementCollection.cs" />
+    <Compile Include="Factory\DataSetUri.cs" />
+    <Compile Include="Factory\FactoryConfigurationSection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="ScientificDataSet.snk" />
+    <None Include="ScientificDataSet.xsd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

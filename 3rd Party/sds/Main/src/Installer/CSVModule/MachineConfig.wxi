@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns:util='http://schemas.microsoft.com/wix/UtilExtension'>
+  <!--Provider-->
+  <util:XmlConfig Id="Csvp$(var.PlatformType)" File="$(var.FileTarget)" Name="add" Node="element" Sequence="3" Action="create" ElementPath="//configuration/microsoft.research.science.data.1.2/factories" On="install"/>
+  <util:XmlConfig Id="Csvpn$(var.PlatformType)" File="$(var.FileTarget)" Name="name" ElementPath="Csvp$(var.PlatformType).FD16C641_5B18_42F4_A2E3_7FCE7FD5B0C2" Sequence="4" Value="csv"/>
+  <util:XmlConfig Id="Csvpt$(var.PlatformType)" File="$(var.FileTarget)" Name="type" ElementPath="Csvp$(var.PlatformType).FD16C641_5B18_42F4_A2E3_7FCE7FD5B0C2" Sequence="4" Value="$(var.FactoryClassFullName)"/>
+
+  <!--Extension .csv-->
+  <util:XmlConfig Id="Csve$(var.PlatformType)" File="$(var.FileTarget)" Name="add" Node="element" Sequence="3" Action="create" ElementPath="//configuration/microsoft.research.science.data.1.2/factories" On="install"/>
+  <util:XmlConfig Id="Csven$(var.PlatformType)" File="$(var.FileTarget)" Name="ext" ElementPath="Csve$(var.PlatformType).FD16C641_5B18_42F4_A2E3_7FCE7FD5B0C2" Sequence="4" Value=".csv"/>
+  <util:XmlConfig Id="Csvet$(var.PlatformType)" File="$(var.FileTarget)" Name="type" ElementPath="Csve$(var.PlatformType).FD16C641_5B18_42F4_A2E3_7FCE7FD5B0C2" Sequence="4" Value="$(var.FactoryClassFullName)"/>
+
+  <!--Extension .tsv-->
+  <util:XmlConfig Id="Tsve$(var.PlatformType)" File="$(var.FileTarget)" Name="add" Node="element" Sequence="3" Action="create" ElementPath="//configuration/microsoft.research.science.data.1.2/factories" On="install"/>
+  <util:XmlConfig Id="Tsven$(var.PlatformType)" File="$(var.FileTarget)" Name="ext" ElementPath="Tsve$(var.PlatformType).FD16C641_5B18_42F4_A2E3_7FCE7FD5B0C2" Sequence="4" Value=".tsv"/>
+  <util:XmlConfig Id="Tsvet$(var.PlatformType)" File="$(var.FileTarget)" Name="type" ElementPath="Tsve$(var.PlatformType).FD16C641_5B18_42F4_A2E3_7FCE7FD5B0C2" Sequence="4" Value="$(var.FactoryClassFullName)"/>
+</Include>

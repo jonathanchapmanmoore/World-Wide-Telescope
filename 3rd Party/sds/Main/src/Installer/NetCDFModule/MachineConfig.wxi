@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns:util='http://schemas.microsoft.com/wix/UtilExtension'>
+  <!--Provider-->
+  <util:XmlConfig Id="Ncp$(var.PlatformType)" File="$(var.FileTarget)" Name="add" Node="element" Sequence="3" Action="create" ElementPath="//configuration/microsoft.research.science.data.1.2/factories" On="install"/>
+  <util:XmlConfig Id="Ncpn$(var.PlatformType)" File="$(var.FileTarget)" Name="name" ElementPath="Ncp$(var.PlatformType).CD565D8A_81DD_493C_9385_512A0A2CD9E3" Sequence="4" Value="nc"/>
+  <util:XmlConfig Id="Ncpt$(var.PlatformType)" File="$(var.FileTarget)" Name="type" ElementPath="Ncp$(var.PlatformType).CD565D8A_81DD_493C_9385_512A0A2CD9E3" Sequence="4" Value="$(var.FactoryClassFullName)"/>
+  <!--Extensions-->
+  <util:XmlConfig Id="Nce$(var.PlatformType)" File="$(var.FileTarget)" Name="add" Node="element" Sequence="3" Action="create" ElementPath="//configuration/microsoft.research.science.data.1.2/factories" On="install"/>
+  <util:XmlConfig Id="Ncen$(var.PlatformType)" File="$(var.FileTarget)" Name="ext" ElementPath="Nce$(var.PlatformType).CD565D8A_81DD_493C_9385_512A0A2CD9E3" Sequence="4" Value=".nc"/>
+  <util:XmlConfig Id="Ncet$(var.PlatformType)" File="$(var.FileTarget)" Name="type" ElementPath="Nce$(var.PlatformType).CD565D8A_81DD_493C_9385_512A0A2CD9E3" Sequence="4" Value="$(var.FactoryClassFullName)"/>
+
+</Include>

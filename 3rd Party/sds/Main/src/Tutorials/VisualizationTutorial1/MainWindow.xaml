@@ -1,0 +1,21 @@
+<!-- Copyright © 2010 Microsoft Corporation, All Rights Reserved.
+This code released under the terms of the Microsoft Research License Agreement (MSR-LA, http://sds.codeplex.com/License) -->
+<Window x:Class="VisualizationTutorial1.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dsv="clr-namespace:Microsoft.Research.Science.Data.Viewer;assembly=DataSetViewerControls"
+    Title="Visualization Sample" Height="300" Width="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <RadioButton Name="colorMap" VerticalAlignment="Center" Margin="5,5,5,5" Checked="ColorMapChecked">Color map</RadioButton>
+            <RadioButton Name="matrix" VerticalAlignment="Center" Margin="5,5,5,5" Checked="TableChecked">Table of values</RadioButton>
+            <RadioButton Name="isolines" VerticalAlignment="Center" Margin="5,5,5,5" Checked="ContourLinesChecked">Contour lines</RadioButton>
+        </StackPanel>
+        <dsv:DataSetViewerControl Name="dsvc" Grid.Row="1" ControlPanelVisibility="Hidden"/>
+    </Grid>
+</Window>
+

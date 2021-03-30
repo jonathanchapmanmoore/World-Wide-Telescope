@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?define DeployingAssemblyVersion="1.2.6754.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util='http://schemas.microsoft.com/wix/UtilExtension'>
+  <Module Id="NetCDFModule" Language="1033" Version="$(var.DeployingAssemblyVersion)" Guid="CD565D8A-81DD-493C-9385-512A0A2CD9E3">
+    <Package Id="fefec797-6c8d-4645-9c30-ef2436374099" Manufacturer="NetCDFModule" InstallerVersion="200" />
+
+    <PropertyRef Id="NETFRAMEWORK40CLIENT"/>
+    <PropertyRef Id="NETFRAMEWORK20INSTALLROOTDIR"/>
+    <PropertyRef Id="NETFRAMEWORK20INSTALLROOTDIR64"/>
+    <PropertyRef Id="NETFRAMEWORK40CLIENTINSTALLROOTDIR"/>
+    <PropertyRef Id="NETFRAMEWORK40CLIENTINSTALLROOTDIR64"/>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="Reference Assemblies">
+          <Directory Id="Microsoft" Name="Microsoft">
+            <Directory Id="Research" Name="Research">
+              <Directory Id="ScientificDataSet" Name="Scientific DataSet 1.2">
+
+                <!--The following assemblies will be put in GAC-->
+                <Directory Id="GAC" Name="GAC">
+                  
+                  <Component Id="Microsoft.Research.Science.Data.NetCDF4.dll_GAC" Guid="4851E74E-20C8-4279-BC0C-A3B533502B34">
+                    <File Id="Microsoft.Research.Science.Data.NetCDF4_32.dll"
+                          Name="$(var.Microsoft.Research.Science.Data.NetCDF4.TargetFileName)"
+                          Checksum="yes" 
+                          ProcessorArchitecture="x86"
+                          KeyPath="yes" 
+                          Source="$(var.Microsoft.Research.Science.Data.NetCDF4.ProjectDir)bin\x32\Microsoft.Research.Science.Data.NetCDF4.dll" 
+                          Assembly=".net"/>
+                    <File Id="netcdf4.dll"
+                          Name="netcdf4.dll"
+                          Source="$(var.Microsoft.Research.Science.Data.NetCDF4.ProjectDir)bin\x32\netcdf4.dll"/>
+                  </Component>
+                  
+                  <Directory Id="GAC64" Name="GAC64">
+                    <Component Id="Microsoft.Research.Science.Data.NetCDF4.dll_GAC64" Guid="79E8881C-0526-474b-AADB-2CC5B9B5ADCA">
+                      <Condition>VersionNT64</Condition>
+                      <File Id="Microsoft.Research.Science.Data.NetCDF4_64.dll"
+                            Name="$(var.NetCDF4.x64.TargetFileName)"
+                            Checksum="yes"
+                            ProcessorArchitecture="x64"
+                            KeyPath="yes"
+                            Source="$(var.NetCDF4.x64.ProjectDir)bin\x64\Microsoft.Research.Science.Data.NetCDF4.dll"
+                            Assembly=".net"/>
+                      <File Id="netcdf4_64.dll" 
+                            Name="netcdf4.dll"
+                            Source="$(var.NetCDF4.x64.ProjectDir)bin\x64\netcdf4.dll"/>
+                    </Component>
+                  </Directory>
+
+                </Directory>
+
+                <?define FactoryClassFullName="Microsoft.Research.Science.Data.NetCDF4.NetCDFDataSet, Microsoft.Research.Science.Data.NetCDF4, Version=$(var.DeployingAssemblyVersion), Culture=neutral, PublicKeyToken=$(var.DeployingPublicKeyToken)"?>
+                
+                <!--Registering Provider in Machine.Config .NET 3.5 x86-->
+                <Component Id="MachineConfig" Guid="C90F2E77-0296-4037-8C62-59FA690DDEB7" KeyPath="yes">
+
+                  <?define FileTarget = "[NETFRAMEWORK20INSTALLROOTDIR]config\machine.config" ?>
+                  <?define PlatformType = "x86"?>
+                  <?include MachineConfig.wxi ?>
+                  
+                </Component>
+
+                <!--Registering Provider in Machine.Config .NET 3.5 x64-->
+                <Component Id="MachineConfig64" Guid="2A0D8EFC-FCA9-4cfb-8934-FAB7A5D5AD26" KeyPath="yes">
+                  
+                  <Condition>VersionNT64</Condition>
+                  <?define FileTarget = "[NETFRAMEWORK20INSTALLROOTDIR64]config\machine.config" ?>
+                  <?define PlatformType = "x64"?>
+                  <?include MachineConfig.wxi ?>
+                  
+                </Component>
+
+                <!--Registering Provider in Machine.Config .NET 4.0 rtm x86-->
+                <Component Id="MCn4rtm" Guid="E9151C25-01DC-4fc4-8A59-429DEA9A5A62" KeyPath="yes">
+
+                  <Condition>NETFRAMEWORK40CLIENT</Condition>
+                  <?define FileTarget = "[NETFRAMEWORK40CLIENTINSTALLROOTDIR]config\machine.config" ?>
+                  <?define PlatformType = "x86n4rtm"?>
+                  <?include MachineConfig.wxi ?>
+                  
+                </Component>
+
+                <!--Registering Provider in Machine.Config .NET 4.0 rtm x64-->
+                <Component Id="MC64n4rtm" Guid="E0E4F2E8-D264-4dfa-8133-DB26E642E847" KeyPath="yes">
+                  
+                  <Condition>VersionNT64 AND NETFRAMEWORK40CLIENT</Condition>
+                  <?define FileTarget = "[NETFRAMEWORK40CLIENTINSTALLROOTDIR64]config\machine.config" ?>
+                  <?define PlatformType = "x64n4rtm"?>
+                  <?include MachineConfig.wxi ?>
+                  
+                </Component>
+
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Module>
+</Wix>
