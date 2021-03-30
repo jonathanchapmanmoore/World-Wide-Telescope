@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="Renci.Wwt.DataManager.NetCDF.Views.NetCDFWorkspaceView"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vw="clr-namespace:Renci.Wwt.DataManager.NetCDF.Views"
+             xmlns:vm="clr-namespace:Renci.Wwt.DataManager.NetCDF.ViewModels"
+			 xmlns:prism="http://www.codeplex.com/prism"
+			 mc:Ignorable="d" 
+			 d:DesignHeight="300" d:DesignWidth="300">
+    <TabControl Margin="3">
+        <TabItem Header="Properties" >
+            <ContentControl Content="{Binding}" >
+                <ContentControl.ContentTemplate>
+                    <DataTemplate>
+                        <vw:NetCDFPropertiesView />
+                    </DataTemplate>
+                </ContentControl.ContentTemplate>
+            </ContentControl>
+        </TabItem>
+        <TabItem Header="NET CDF Details" />
+    </TabControl>
+</UserControl>

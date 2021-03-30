@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{69364B4D-A524-4E77-98D1-571F1448936A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Renci.Wwt.DataManager.Common</RootNamespace>
+    <AssemblyName>Renci.Wwt.DataManager.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\Assemblies\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseClasses\DataProviderBase.cs" />
+    <Compile Include="BaseClasses\ModelBase.cs" />
+    <Compile Include="BaseClasses\ViewModelBase.cs" />
+    <Compile Include="Behaviours\Selected.cs" />
+    <Compile Include="DialogWindowAction.cs" />
+    <Compile Include="DialogWindowPopup.cs" />
+    <Compile Include="Editors\PathSelectionEditor.xaml.cs">
+      <DependentUpon>PathSelectionEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Events\FilterInfoSelectedEvent.cs" />
+    <Compile Include="Events\DataSourceInfoSelectedEvent.cs" />
+    <Compile Include="Events\WorkDocumentChangedEvent.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Framework\IResult.cs" />
+    <Compile Include="Framework\ReflectiveCommand.cs" />
+    <Compile Include="Framework\ResultEnumerator.cs" />
+    <Compile Include="Framework\ViewModelBinder.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="MenuItem.cs" />
+    <Compile Include="MessageDialogBox.cs" />
+    <Compile Include="Models\DataSourceFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\DataSourceInfo.cs" />
+    <Compile Include="Models\FilterInfo.cs" />
+    <Compile Include="Models\WorkDocument.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegionExtensions.cs" />
+    <Compile Include="RegionNames.cs" />
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="Behaviours\SelectorSelectedCommandBehavior.cs" />
+    <Compile Include="Services\FileDialogOption.cs" />
+    <Compile Include="Services\FileDialogResult.cs" />
+    <Compile Include="Services\IApplicationService.cs" />
+    <Compile Include="Services\IDialogService.cs" />
+    <Compile Include="Services\OpenFileDialogOption.cs" />
+    <Compile Include="Services\SaveFileDialogOption.cs" />
+    <Compile Include="ViewModels\DataSourceFilterViewModel.cs" />
+    <Compile Include="ViewModels\DataSourceInfoViewModel.cs" />
+    <Compile Include="ViewModels\FilterInfoViewModel.cs" />
+    <Compile Include="ViewModels\FilterViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Microsoft.Practices\Prism.Interactivity\Microsoft.Prism.Interactivity.csproj">
+      <Project>{DE856812-A32C-4866-801E-AF396D711942}</Project>
+      <Name>Microsoft.Prism.Interactivity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.Practices\Prism.UnityExtensions\Microsoft.Practices.Prism.UnityExtensions.csproj">
+      <Project>{17831F3B-6B82-4916-BD2B-2CE2071EA622}</Project>
+      <Name>Microsoft.Practices.Prism.UnityExtensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.Practices\Prism\Microsoft.Practices.Prism.csproj">
+      <Project>{77138947-1D13-4E22-AEE0-5D0DD046CA34}</Project>
+      <Name>Microsoft.Practices.Prism</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.Practices\ServiceLocation\Microsoft.Practices.ServiceLocation.csproj">
+      <Project>{FAF6D6B2-1EC9-4A1B-83BB-48F772E948CF}</Project>
+      <Name>Microsoft.Practices.ServiceLocation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.Practices\Unity\Unity\Src\Microsoft.Practices.Unity.csproj">
+      <Project>{EE1F752C-1FAB-41AD-AD63-857D0E62AB6B}</Project>
+      <Name>Microsoft.Practices.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Renci.Wwt.Core\Renci.Wwt.Core.csproj">
+      <Project>{1EA138EE-1E16-467D-BA81-F40576130AF7}</Project>
+      <Name>Renci.Wwt.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPFToolkit.Extended\WPFToolkit.Extended.csproj">
+      <Project>{72E591D6-8F83-4D8C-8F67-9C325E623234}</Project>
+      <Name>WPFToolkit.Extended</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Editors\PathSelectionEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

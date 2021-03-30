@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="Renci.Wwt.DataManager.Views.DataSourceFilterItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                 xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="GotFocus">
+            <i:InvokeCommandAction x:Name="GotFocusCommand" Command="{Binding Path=DisplayPropertiesCommand, Mode=OneWay}"  CommandParameter="{Binding DataSourceFilter.FilterInfo}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Properties" Command="{Binding DisplayPropertiesCommand}" CommandParameter="{Binding DataSourceFilter.FilterInfo}" />
+        </ContextMenu>
+    </UserControl.ContextMenu>
+    <StackPanel Orientation="Horizontal">
+        <CheckBox IsChecked="{Binding DataSourceFilter.Enabled}" Margin="3,3,3,3" />
+        <TextBlock HorizontalAlignment="Stretch" Text="{Binding DataSourceFilter.FilterInfo.Name}" />
+    </StackPanel>
+</UserControl>

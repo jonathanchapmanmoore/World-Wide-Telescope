@@ -1,0 +1,97 @@
+﻿<Window x:Class="Renci.Wwt.DataManager.Views.PublishDataView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:extToolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit.Extended"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+             mc:Ignorable="d" 
+		     xmlns:Service="clr-namespace:Renci.Wwt.DataManager.Services"
+		     Service:DialogService.IsRegisteredView="True"
+             ShowInTaskbar="False"
+             WindowStartupLocation="CenterOwner"
+             Title="Data Publishing Wizard"
+             Height="300" Width="500"
+             d:DesignHeight="400" d:DesignWidth="600">
+    <extToolkit:Wizard x:Name="Wizard"  FinishButtonClosesWindow="True" >
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Finish">
+                <i:InvokeCommandAction x:Name="Finish" Command="{Binding Path=FinishWizardCommand, Mode=OneWay}"  />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <extToolkit:WizardPage x:Name="IntroPage" 
+                                Title="Welcome to WWT Data Publishing Wizard"
+                                Description="This Wizard will guide how to publish data into World Wide Telescope." 
+                                NextCommand="{Binding SummaryCommand}" />
+        <extToolkit:WizardPage x:Name="SummaryPage" 
+                                PageType="Interior"
+                                Title="Data summary"
+                                Description="The following data and attached filters will be published."
+                                NextCommand="{Binding AnalyzeCommand}"
+                                NextPage="{Binding ElementName=AnalizyPage}"
+                                PreviousPage="{Binding ElementName=IntroPage}">
+            <ListBox ItemsSource="{Binding ProgressLog}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </extToolkit:WizardPage>
+        <extToolkit:WizardPage x:Name="AnalizyPage" 
+                                PageType="Interior"
+                                Title="Data Analysis"
+                                Description="Analyzing data."
+                                CanSelectNextPage="{Binding IsAnalizesFinished}"
+                                CanSelectPreviousPage="{Binding IsAnalizesFinished}">
+            <ListBox ItemsSource="{Binding ProgressLog}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </extToolkit:WizardPage>
+        <extToolkit:WizardPage x:Name="LayerNamePage" 
+                                PageType="Interior"
+                                Title="Layer Name"
+                                Description="Specify merged layer name."
+                                NextCommand="{Binding PublishCommand}">
+            <Grid VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="24" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsMergedLayers}" />
+                <TextBox Grid.Column="1" Text="{Binding MergedLayerName}" />
+            </Grid>
+        </extToolkit:WizardPage>
+        <extToolkit:WizardPage 
+                                PageType="Interior"
+                                Title="Publishing Data "
+                                Description="Publishing data into World Wide Telescope."
+                                NextCommand="{Binding PublishCompletedCommand}"
+                                CanSelectNextPage="{Binding IsPublishFinished}"
+                                CanSelectPreviousPage="{Binding IsPublishFinished}" >
+            <ListBox ItemsSource="{Binding ProgressLog}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </extToolkit:WizardPage>
+        <extToolkit:WizardPage x:Name="LastPage" PageType="Interior"
+                                Title="Publishing Complete"
+                                Description="Following layers have been created."                               
+                                CanFinish="True">
+            <ListBox ItemsSource="{Binding ProgressLog}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </extToolkit:WizardPage>
+    </extToolkit:Wizard>
+</Window>

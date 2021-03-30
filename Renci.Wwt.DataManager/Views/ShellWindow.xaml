@@ -1,0 +1,88 @@
+﻿<ribbon:RibbonWindow x:Class="Renci.Wwt.DataManager.Views.ShellWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:ribbon="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary"
+		xmlns:prism="http://www.codeplex.com/prism"
+		xmlns:Service="clr-namespace:Renci.Wwt.DataManager.Services"
+		Service:DialogService.IsRegisteredView="True"
+		Title="WWT Data Manager" Height="600" Width="800">
+	<ribbon:RibbonWindow.Resources>
+		<ResourceDictionary Source="/Renci.Wwt.DataManager;component/Resources/View.Resources.xaml" />
+	</ribbon:RibbonWindow.Resources>
+	<Grid>
+		<DockPanel>
+			<DockPanel DockPanel.Dock="Top" KeyboardNavigation.TabNavigation="None">
+				<ribbon:Ribbon x:Name="ApplicationRibbon" 
+				Grid.Row="0"  
+				Background="Transparent"  
+				prism:RegionManager.RegionName="RibbonRegion">
+
+					<!-- Ribbon ApplicationMenu (defined here) -->
+					<ribbon:Ribbon.ApplicationMenu>
+						<ribbon:RibbonApplicationMenu >
+							<ribbon:RibbonApplicationMenuItem Header="E_xit" x:Name="ExitMenuItem" />
+						</ribbon:RibbonApplicationMenu>
+					</ribbon:Ribbon.ApplicationMenu>
+
+					<!-- Home Tab (defined here) -->
+					<ribbon:RibbonTab x:Name="HomeTab"  Header="Home">
+						<ribbon:RibbonGroup Header="File">
+							<ribbon:RibbonButton Label="New" 
+												 SmallImageSource="/Renci.Wwt.DataManager;component/Resources/Images/new.png"
+												 LargeImageSource="/Renci.Wwt.DataManager;component/Resources/Images/new.png" 
+												 Command="{Binding NewWorkDocumentCommand}"/>
+							<ribbon:RibbonButton Label="Open" 
+												 SmallImageSource="/Renci.Wwt.DataManager;component/Resources/Images/open.png"
+												 LargeImageSource="/Renci.Wwt.DataManager;component/Resources/Images/open.png" 
+												 Command="{Binding LoadWorkDocumentCommand}"/>
+							<ribbon:RibbonButton Label="Save" 
+												 SmallImageSource="/Renci.Wwt.DataManager;component/Resources/Images/save.png"
+												 LargeImageSource="/Renci.Wwt.DataManager;component/Resources/Images/save.png" 
+												 Command="{Binding SaveWorkDocumentCommand}"/>
+						</ribbon:RibbonGroup>
+						<ribbon:RibbonGroup Header="Data">
+							<ribbon:RibbonMenuButton Label="New Data Source"
+													 ToolTipTitle="New Data Source"
+													 ToolTipDescription="Adds new data source."
+													 LargeImageSource="/Renci.Wwt.DataManager;component/Resources/Images/add_datasource.png"
+													 prism:RegionManager.RegionName="NewDataSourceButtonsRegion">
+							</ribbon:RibbonMenuButton>
+                            <ribbon:RibbonMenuButton Label="New Data Filter"
+													 ToolTipTitle="New Data Filter"
+													 ToolTipDescription="Adds new data filter."
+													 LargeImageSource="/Renci.Wwt.DataManager;component/Resources/Images/add_datafilter.png"
+													 prism:RegionManager.RegionName="NewDataFilterButtonsRegion">
+                            </ribbon:RibbonMenuButton>
+							<ribbon:RibbonButton Label="Analize" 
+												 Command="{Binding AnalyzeCommand}" 
+												 ToolTipTitle="Analizes data prior publishing it to World Wide Telescope"
+												 LargeImageSource="/Renci.Wwt.DataManager;component/Resources/Images/analyze_data.png"/>
+							<ribbon:RibbonButton Label="Publish" 
+												 Command="{Binding PublishCommand}"
+												 ToolTipTitle="Publish data to World Wide Telescope"
+												 LargeImageSource="/Renci.Wwt.DataManager;component/Resources/Images/publish_data.png"/>
+						</ribbon:RibbonGroup>
+					</ribbon:RibbonTab>
+				</ribbon:Ribbon>
+			</DockPanel>
+			<DockPanel DockPanel.Dock="Bottom" KeyboardNavigation.TabNavigation="None">
+				<ContentPresenter Name="StatusBar" />
+			</DockPanel>
+			<DockPanel>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="2*"/>
+						<ColumnDefinition Width="4"/>
+						<ColumnDefinition Width="5*"/>
+					</Grid.ColumnDefinitions>
+					<TabControl Grid.Column="0" Margin="3">
+						<TabItem Header="Data Sources" prism:RegionManager.RegionName="DataSourceInfoListViewRegion"/>
+						<TabItem Header="Data Source Filters" prism:RegionManager.RegionName="DataSourceFilterListViewRegion"/>
+					</TabControl>
+					<GridSplitter Grid.Column="1" HorizontalAlignment="Center"  Width="4"/>
+					<ContentControl Grid.Column="2" prism:RegionManager.RegionName="WorkspaceRegion" />
+				</Grid>
+			</DockPanel>
+		</DockPanel>
+	</Grid>
+</ribbon:RibbonWindow>

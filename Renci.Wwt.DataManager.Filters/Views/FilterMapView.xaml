@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="Renci.Wwt.DataManager.Filters.Views.FilterMapView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"              
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <!--xmlns:ve="clr-namespace:VirtualEarthWPFControl;assembly=VirtualEarthWPFControl"-->
+    <!--<ve:VEMap Name="_map" OnMouseDown="_map_OnMouseDown" OnMouseUp="_map_OnMouseUp" />-->
+    <Grid>
+        <!--xmlns:ve="clr-namespace:InfoStrat.VE;assembly=InfoStrat.VE"
+        <ve:VEMap x:Name="_map"
+                  MapStyle="Hybrid"                  
+                  LatLong="38.9444195081574,-77.0630161230201">
+            <ve:VEPushPin x:Name="_pushpin"
+                          ShapeType="Polyline"
+                            Latitude="38.9444195081574"
+                          Longitude="-77.0630161230201"
+                          />
+        </ve:VEMap>-->
+    </Grid>
+
+</UserControl>
+
+    

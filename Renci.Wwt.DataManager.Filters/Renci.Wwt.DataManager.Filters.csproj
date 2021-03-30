@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C73E9834-C8DF-4E81-8B4E-6CE23C330FE8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Renci.Wwt.DataManager.Filters</RootNamespace>
+    <AssemblyName>Renci.Wwt.DataManager.Filters</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FiltersModuleInit.cs" />
+    <Compile Include="Models\BoundBoxFilterInfo.cs" />
+    <Compile Include="Models\BoundCircleFilterInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AddFilterRibbonMenuItemViewModel.cs" />
+    <Compile Include="ViewModels\FilterPropertiesViewModel.cs" />
+    <Compile Include="Views\AddFilterRibbonMenuItemView.xaml.cs">
+      <DependentUpon>AddFilterRibbonMenuItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BoundCircleFilterWorkspaceView.xaml.cs">
+      <DependentUpon>BoundCircleFilterWorkspaceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FilterMapView.xaml.cs">
+      <DependentUpon>FilterMapView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FilterPropertiesView.xaml.cs">
+      <DependentUpon>FilterPropertiesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BoundBoxFilterWorkspaceView.xaml.cs">
+      <DependentUpon>BoundBoxFilterWorkspaceView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Microsoft.Practices\Prism.UnityExtensions\Microsoft.Practices.Prism.UnityExtensions.csproj">
+      <Project>{17831F3B-6B82-4916-BD2B-2CE2071EA622}</Project>
+      <Name>Microsoft.Practices.Prism.UnityExtensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.Practices\Prism\Microsoft.Practices.Prism.csproj">
+      <Project>{77138947-1D13-4E22-AEE0-5D0DD046CA34}</Project>
+      <Name>Microsoft.Practices.Prism</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.Practices\ServiceLocation\Microsoft.Practices.ServiceLocation.csproj">
+      <Project>{FAF6D6B2-1EC9-4A1B-83BB-48F772E948CF}</Project>
+      <Name>Microsoft.Practices.ServiceLocation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.Practices\Unity\Unity\Src\Microsoft.Practices.Unity.csproj">
+      <Project>{EE1F752C-1FAB-41AD-AD63-857D0E62AB6B}</Project>
+      <Name>Microsoft.Practices.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Renci.Wwt.DataManager.Common\Renci.Wwt.DataManager.Common.csproj">
+      <Project>{69364B4D-A524-4E77-98D1-571F1448936A}</Project>
+      <Name>Renci.Wwt.DataManager.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RibbonControlsLibrary\v4.0\RibbonControlsLibrary_v40.csproj">
+      <Project>{2CA5E547-4567-45C9-8240-A408BCA5C714}</Project>
+      <Name>RibbonControlsLibrary_v40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPFToolkit.Extended\WPFToolkit.Extended.csproj">
+      <Project>{72E591D6-8F83-4D8C-8F67-9C325E623234}</Project>
+      <Name>WPFToolkit.Extended</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Page Include="Views\AddFilterRibbonMenuItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BoundCircleFilterWorkspaceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FilterMapView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FilterPropertiesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BoundBoxFilterWorkspaceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y "$(TargetPath)" "$(SolutionDir)Renci.Wwt.DataManager\$(OutDir)Modules\"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="Renci.Wwt.DataManager.Sos.Views.SosWorkspaceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vw="clr-namespace:Renci.Wwt.DataManager.Sos.Views"
+             xmlns:vm="clr-namespace:Renci.Wwt.DataManager.Sos.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <TabControl Margin="3">
+        <TabItem Header="Properties" >
+            <ContentControl Content="{Binding}" >
+                <ContentControl.ContentTemplate>
+                    <DataTemplate>
+                        <vw:SosPropertiesView />
+                    </DataTemplate>
+                </ContentControl.ContentTemplate>
+            </ContentControl>
+        </TabItem>
+    </TabControl>
+</UserControl>

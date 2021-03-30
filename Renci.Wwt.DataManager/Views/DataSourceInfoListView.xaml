@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="Renci.Wwt.DataManager.Views.DataSourceInfoListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:commands="clr-namespace:Renci.Wwt.DataManager.Common.Behaviours;assembly=Renci.Wwt.DataManager.Common"
+             xmlns:behaviours="clr-namespace:Renci.Wwt.DataManager.Common.Behaviours;assembly=Renci.Wwt.DataManager.Common"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+             xmlns:vw="clr-namespace:Renci.Wwt.DataManager.Views"
+             xmlns:vm="clr-namespace:Renci.Wwt.DataManager.ViewModels"
+             xmlns:cvm="clr-namespace:Renci.Wwt.DataManager.Common.ViewModels;assembly=Renci.Wwt.DataManager.Common"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style x:Key="CollectionEditorButtonStyle" TargetType="{x:Type Button}">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Opacity" Value="0.6" />
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Height" Value="26" />
+            <Setter Property="Width" Value="26" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Border Background="White"  BorderBrush="Black"  BorderThickness="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TreeView 
+                        Margin="3,3,0,3" 
+                        HorizontalContentAlignment="Stretch"
+                        ItemsSource="{Binding DataSourceInfoList}"
+                        Name="DataSourceInfoList">
+                    <TreeView.Resources>
+                        <HierarchicalDataTemplate DataType="{x:Type cvm:DataSourceInfoViewModel}" ItemsSource="{Binding DataSourceFilters}">
+                            <vw:DataSourceInfoItemView />
+                        </HierarchicalDataTemplate>
+                        <HierarchicalDataTemplate DataType="{x:Type cvm:DataSourceFilterViewModel}">
+                            <vw:DataSourceFilterItemView />
+                        </HierarchicalDataTemplate>
+                    </TreeView.Resources>
+                </TreeView>
+                <StackPanel Margin="7,3,7,0" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="1">
+                    <Button Style="{StaticResource CollectionEditorButtonStyle}"
+                                            Command="{Binding UpDataSourceInfoCommand}" CommandParameter="{Binding SelectedValue, ElementName=DataSourceInfoList}">
+                        <Path Fill="#FF404040" Data="F0 M 6,0 L 12,7 8,7 8,12 4,12 4,7 0,7 Z" />
+                    </Button>
+                    <Button Margin="0,1,0,0" Style="{StaticResource CollectionEditorButtonStyle}"
+                                            Command="{Binding DownDataSourceInfoCommand}" CommandParameter="{Binding SelectedValue, ElementName=DataSourceInfoList}">
+                        <Path Fill="#FF404040" Data="F0 M 4,0 L 8,0 8,5 12,5 6,12 0,5 4,5 Z" />
+                    </Button>
+                    <Button Margin="0,7,0,0" Style="{StaticResource CollectionEditorButtonStyle}"
+                                            Command="{Binding DeleteDataSourceInfoCommand}" CommandParameter="{Binding SelectedValue, ElementName=DataSourceInfoList}">
+                        <Image Stretch="None" Height="16" Width="16" Margin="1" Source="/Renci.Wwt.DataManager;component/Resources/Images/delete.png" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>MapControl</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2"></script>
+    
+    <style type="text/css">
+        body { padding:0px; margin:0px; }
+        #map {   }
+        * { font-family: Arial; }
+    </style>
+    
+    <script type="text/javascript">
+    
+        var map = null;
+
+        //JavaScript developers, don't hate on me! This is the only
+        //way to invoke JS through .NET's runtime env.
+        
+        function VEMapClear(){ map.Clear(); }
+        
+        function VEMapDispose(){ map.Dispose(); }
+        
+        function VEMapFind(where){ map.Find(null, where); }
+        
+        function VEMapGetAltitude(){ return map.GetAltitude(); }
+        
+        function VEMapGetCenter(){ return map.GetCenter().toString(); }
+        
+        function VEMapGetHeading() { return map.GetHeading(); }
+        
+        function VEMapGetLeft() { return map.GetLeft(); }
+        
+        function VEMapGetMapMode() { return map.GetMapMode(); }
+        
+        function VEMapGetMapStyle() { return map.GetMapStyle(); }
+        
+        function VEMapGetMapView() { return map.GetMapView(); }
+        
+        function VEMapGetPitch() { return map.GetPitch(); }
+        
+        function VEMapGetTop(){ return map.GetTop(); }
+        
+        function VEMapGetVersion(){ return map.GetVersion(); }
+        
+        function VEMapGetZoomLevel(){ return map.GetZoomLevel(); }
+        
+        function VEMapHideDashboard(){ map.HideDashboard(); }
+        
+        function VEMapIsBirdsEyeAvailable(){ return map.IsBirdsEyeAvailable(); }
+        
+        function VEMapLatLongToPixel(lat, lon)
+        {
+            var pixel = map.LatLongToPixel(new VELatLong(lat,lon));
+            return pixel.x + "," + pixel.y;
+        }
+        
+        function VEMapLoadTraffic(traffic) { map.LoadTraffic(traffic); }
+        
+        function VEMapPan(x, y){ map.Pan(x, y); }
+        
+        function VEMapPanToLatLong(lat, lon){ map.PanToLatLong(new VELatLong(lat, lon)); }
+        
+        function VEMapPixelToLatLong(x,y){ return map.PixelToLatLong(new VEPixel(x,y)).toString(); }
+        
+        function VEMapResize(width, height) { map.Resize(width, height); }
+        
+        function VEMapSetCenter(lat, lon){ map.SetCenter(new VELatLong(lat,lon)); }
+        
+        function VEMapSetCenterAndZoom(lat, lon, zoom){ map.SetCenterAndZoom(new VELatLong(lat,lon), zoom); }
+        
+        function VEMapSetHeading(heading){ map.SetHeading(heading); }
+        
+        function VEMapSetMapMode(mode){ map.SetMapMode(mode); }
+        
+        function VEMapSetMapStyle(style){ map.SetMapStyle(style); }
+        
+        function VEMapSetPitch(pitch){ map.SetPitch(pitch); }
+        
+        function VEMapSetTileBuffer(num){ map.SetTileBuffer(num); }
+        
+        function VEMapSetZoomLevel(num) { map.SetZoomLevel(num); }
+        
+        function VEMapShowDashboard() { map.ShowDashboard(); }
+        
+        function VEMapZoomIn(){ map.ZoomIn(); }
+        
+        function VEMapZoomOut(){ map.ZoomOut(); }
+        
+        function Init() 
+        {
+            map = new VEMap("map");
+            map.LoadMap();
+            
+            //nofify that we loaded the map.
+            window.external.OnMapLoad();
+            
+            //attach events (virtual earth events)
+            map.AttachEvent("onchangemapstyle", function(e) { 
+                window.external.OnChangeMapStyle(e.eventName, e.mapStyle, e.sceneID, e.sceneOrientation, e.zoomLevel);
+            });
+            map.AttachEvent("onchangeview", function(e) { 
+                window.external.OnChangeView(e.eventName, e.mapStyle, e.sceneID, e.sceneOrientation, e.zoomLevel);
+            });
+            map.AttachEvent("onendpan", function(e) { 
+                window.external.OnEndPan(e.eventName, e.mapStyle, e.sceneID, e.sceneOrientation, e.zoomLevel);
+            });
+            map.AttachEvent("onendzoom", function(e) { 
+                window.external.OnEndZoom(e.eventName, e.mapStyle, e.sceneID, e.sceneOrientation, e.zoomLevel);
+            });
+            map.AttachEvent("oninitmode", function(e) { 
+                window.external.OnInitMode(e.eventName, e.mapStyle, e.sceneID, e.sceneOrientation, e.zoomLevel);
+            });
+            map.AttachEvent("onmodenotavailable", function(e) { 
+                window.external.OnModeNotAvailable(e.eventName, e.mapStyle, e.sceneID, e.sceneOrientation, e.zoomLevel);
+            });
+            map.AttachEvent("onresize", function(e) { 
+                window.external.OnResize(e.eventName, e.mapStyle, e.sceneID, e.sceneOrientation, e.zoomLevel);
+            });
+            map.AttachEvent("onstartpan", function(e) { 
+                window.external.OnStartPan(e.eventName, e.mapStyle, e.sceneID, e.sceneOrientation, e.zoomLevel);
+            });
+            map.AttachEvent("onstartzoom", function(e) { 
+                window.external.OnStartZoom(e.eventName, e.mapStyle, e.sceneID, e.sceneOrientation, e.zoomLevel);
+            });
+            
+            // attach events (mouse events)
+            map.AttachEvent("onclick", function(e){ 
+                window.external.OnClick(e.altKey, e.ctrlKey, e.elementID, e.eventName, e.leftMouseButton, e.rightMouseButton, e.mapStyle, e.sceneID, e.sceneOrientation, e.shiftKey, e.clientX, e.clientY, e.screenX, e.screenY, e.mapX, e.mapY, e.zoomLevel);
+            });
+            map.AttachEvent("ondoubleclick", function(e){ 
+                window.external.OnDoubleClick(e.altKey, e.ctrlKey, e.elementID, e.eventName, e.leftMouseButton, e.rightMouseButton, e.mapStyle, e.sceneID, e.sceneOrientation, e.shiftKey, e.clientX, e.clientY, e.screenX, e.screenY, e.mapX, e.mapY, e.zoomLevel);
+            });
+            map.AttachEvent("onmousemove", function(e){ 
+                window.external.OnMouseMove(e.altKey, e.ctrlKey, e.elementID, e.eventName, e.leftMouseButton, e.rightMouseButton, e.mapStyle, e.sceneID, e.sceneOrientation, e.shiftKey, e.clientX, e.clientY, e.screenX, e.screenY, e.mapX, e.mapY, e.zoomLevel);
+            });
+            map.AttachEvent("onmousedown", function(e){ 
+                window.external.OnMouseDown(e.altKey, e.ctrlKey, e.elementID, e.eventName, e.leftMouseButton, e.rightMouseButton, e.mapStyle, e.sceneID, e.sceneOrientation, e.shiftKey, e.clientX, e.clientY, e.screenX, e.screenY, e.mapX, e.mapY, e.zoomLevel);
+            });
+            map.AttachEvent("onmouseup", function(e){ 
+                window.external.OnMouseUp(e.altKey, e.ctrlKey, e.elementID, e.eventName, e.leftMouseButton, e.rightMouseButton, e.mapStyle, e.sceneID, e.sceneOrientation, e.shiftKey, e.clientX, e.clientY, e.screenX, e.screenY, e.mapX, e.mapY, e.zoomLevel);
+            });
+            map.AttachEvent("onmouseover", function(e){ 
+                window.external.OnMouseOver(e.altKey, e.ctrlKey, e.elementID, e.eventName, e.leftMouseButton, e.rightMouseButton, e.mapStyle, e.sceneID, e.sceneOrientation, e.shiftKey, e.clientX, e.clientY, e.screenX, e.screenY, e.mapX, e.mapY, e.zoomLevel);
+            });
+            map.AttachEvent("onmouseout", function(e){ 
+                window.external.OnMouseOut(e.altKey, e.ctrlKey, e.elementID, e.eventName, e.leftMouseButton, e.rightMouseButton, e.mapStyle, e.sceneID, e.sceneOrientation, e.shiftKey, e.clientX, e.clientY, e.screenX, e.screenY, e.mapX, e.mapY, e.zoomLevel);
+            });
+            map.AttachEvent("onmousewheel", function(e){ 
+                window.external.OnMouseWheel(e.altKey, e.ctrlKey, e.elementID, e.eventName, e.leftMouseButton, e.rightMouseButton, e.mapStyle, e.sceneID, e.sceneOrientation, e.shiftKey, e.clientX, e.clientY, e.screenX, e.screenY, e.mapX, e.mapY, e.zoomLevel);
+            });
+            
+            // attach events (keyboard events)
+            map.AttachEvent("onkeypress", function(e){ 
+                window.external.OnKeyPress(e.altKey, e.ctrlKey, e.eventName, e.keyCode, e.mapStyle, e.sceneID, e.sceneOrientation, e.shiftKey, e.zoomLevel);
+            });
+            map.AttachEvent("onkeydown", function(e){ 
+                window.external.OnKeyDown(e.altKey, e.ctrlKey, e.eventName, e.keyCode, e.mapStyle, e.sceneID, e.sceneOrientation, e.shiftKey, e.zoomLevel);
+            });
+            map.AttachEvent("onkeyup", function(e){ 
+                window.external.OnKeyUp(e.altKey, e.ctrlKey, e.eventName, e.keyCode, e.mapStyle, e.sceneID, e.sceneOrientation, e.shiftKey, e.zoomLevel);
+            });
+        }
+
+        //TODO: Add shapes functionality.
+        /*function AddShape(type, stringOfLatLong) 
+        {
+            var shape;
+            
+            try 
+            {
+                switch (type) 
+                {
+                    case "Pushpin":
+                        shape = new VEShape(VEShapeType.Pushpin, StringToLatLongArray(stringOfLatLong));
+                        break;
+                    case "Polyline":
+                        shape = new VEShape(VEShapeType.Polyline, StringToLatLongArray(stringOfLatLong));
+                        //NOTE: We should let the WPF layer decide the next two lines, 
+                        //      but hard coded the values due to time constraints
+                        shape.HideIcon();
+                        shape.SetLineWidth(4);
+                        break;
+                    case "Polygon":
+                        shape = new VEShape(VEShapeType.Polygon, StringToLatLongArray(stringOfLatLong));
+                        //NOTE: We should let the WPF layer decide the next two lines, 
+                        //      but hard coded the values due to time constraints
+                        shape.HideIcon();
+                        shape.SetLineWidth(4);
+                        break;
+                }
+                
+                map.AddShape(shape);
+            }
+            catch (ex) 
+            {
+                window.external.ThrowVEException(ex.source, ex.name, ex.message);
+            }
+        }*/
+
+        window.onresize = function()
+        {
+            if (map != null) 
+            {
+                if (typeof (window.innerWidth) == 'number') 
+                {
+                    //Non-IE
+                    map.Resize(window.innerWidth, window.innerHeight);
+                }
+                else if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) 
+                {
+                    //IE 6+ in 'standards compliant mode'
+                    map.Resize(document.documentElement.clientWidth, document.documentElement.clientHeight);
+                }
+            }
+        };
+        
+        window.onerror = function(message, uri, line) 
+        {
+            window.external.ThrowWindowError(message, uri, line);
+        }
+        
+        //initialize the map, attach events to external handlers
+        window.onload = function() { Init(); }
+    </script>
+</head>
+
+<body scroll="no">
+    <div id="map"></div>
+</body>
+
+</html>

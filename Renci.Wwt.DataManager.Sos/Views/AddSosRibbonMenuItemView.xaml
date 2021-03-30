@@ -1,0 +1,8 @@
+﻿<ribbon:RibbonMenuItem x:Class="Renci.Wwt.DataManager.Sos.Views.AddSosRibbonMenuItemView"
+			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			xmlns:ribbon="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary"
+			Header="{Binding Header}"
+			Command="{Binding Command}"
+			>
+</ribbon:RibbonMenuItem>
